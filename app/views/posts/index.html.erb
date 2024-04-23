@@ -1,0 +1,16 @@
+<p>Todas as postagens do blog:<p>
+
+
+Nosso blog possui <%= Post.public_count %> artigos publicados e contando!
+
+<ul>
+<% @posts.each do |post| %>
+    <% unless post.archived? %>
+        <li>
+            <%= link_to post.title, post %> 
+        </li>
+    <%end %>
+<%end %>
+</ul>
+
+<%= link_to "Nova publicação", new_post_path %>
