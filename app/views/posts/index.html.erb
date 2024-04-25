@@ -1,15 +1,10 @@
 <p>Todas as postagens do blog:<p>
 
-
-Nosso blog possui <%= Post.public_count %> artigos publicados e contando!
-
 <ul>
 <% @posts.each do |post| %>
-    <% unless post.archived? %>
-        <li>
-            <%= link_to post.title, post %> 
-        </li>
-    <%end %>
+    <li>
+        <%= link_to post.title, post %> 
+    </li>
 <%end %>
 </ul>
 

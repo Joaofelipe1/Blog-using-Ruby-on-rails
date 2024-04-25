@@ -10,9 +10,10 @@
     turbo_confirm: "Tem certeza que deseja deletar?"
     } %></li>
 
-    <h2>Comentários</h2>
-    <%= render @post.comments %>
-
     <h2>Adicione um comentário:</h2>
     <%= render 'comments/form' %>
+
+    <h2>Comentários</h2>
+    <%= render @post.comments %>
+    
 </ul>

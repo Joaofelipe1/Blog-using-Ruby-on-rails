@@ -1,18 +1,18 @@
     <%= form_with model: [ @post, @post.comments.build ] do |form| %>
     <p>
         <%= form.label :Autor %><br>
-        <%= form.text_field :commenter %>
+        <% if user_signed_in? %>
+            <%= form.text_field :commenter, value: current_user.email, readonly: true %>
+        <% else %>
+            <%= form.text_field :commenter, value: "Anônimo", readonly: true %>
+        <% end %>
     </p>
     <p>
         <%= form.label :Texto %><br>
         <%= form.text_area :body %>
     </p>
-      <p>
-        <%= form.label :status %><br>
-        <%= form.select :status, Visible:: VALID_STATUSES, selected: 'public' %>
-    </p>
     <p>
         <%= form.submit %>
     </p>
 
-    <% end %>
+<% end %>
