@@ -18,8 +18,17 @@ ENV RAILS_ENV="production" \
 FROM base as build
 
 # Install packages needed to build gems
+# Update and install basic required packages
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libvips pkg-config
+    apt-get install --no-install-recommends -y build-essential git libvips pkg-config curl gnupg
+
+# Install Yarn - Break this into separate RUN commands to isolate issues
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
+RUN apt-get update
+RUN apt-get install -y yarn
+
+
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./

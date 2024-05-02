@@ -1,27 +1,21 @@
 <%= form_with model: post do |form| %>
 
-<div>
-<%= form.label :title %><br>
-<%= form.text_field :title %>
-<% post.errors.full_messages_for(:title).each do |message| %>
-    <div> <%= message %></div>
-    <% end %>
+<div class= "form-inputs">
+
+<%= form.text_field :title, class: 'form-control string' %>
+
+<%= form.label :thumbnail, class:'form-control' %>
+<%= form.file_field :thumbnail%>
+
+<%= form.label :banner, class:'form-control' %>
+<%= form.file_field :banner %>
+
+
+<%= form.rich_text_area :body %>
+
 </div>
 
-<div>
-<%= form.label :body %>
-<%= form.text_area :body %>
-<% post.errors.full_messages_for(:body).each do |message| %>
-      <div><%= message %></div>
-    <% end %>
-</div>
-
-<div>
-    <%= form.label :status %><br>
-    <%= form.select :status, Visible::VALID_STATUSES, selected: post.status || 'public'%>
-</div>
-
-<div>
+<div class= "form-actions">
     <%= form.submit %>
 </div>
 <% end %>

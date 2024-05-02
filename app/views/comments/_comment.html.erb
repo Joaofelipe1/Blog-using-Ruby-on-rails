@@ -1,8 +1,10 @@
+ <div class="container" style="margin-top: 2em; background-color: #F5F5F5; padding: 50px">
+    <% # @comments.each do |comment| %>
     <p>
         <strong>Autor: </strong>
         <%= comment.commenter %>
     </p>
-
+    
     <p>
         <strong>Texto: </strong>
         <%= comment.body %>
@@ -10,8 +12,13 @@
 
 
     <p>
+        <% if current_user && (current_user.email == comment.commenter) || current_user && (current_user.admin == true) %>
         <%= link_to "Apagar comentário", [comment.post, comment], data:{
             turbo_method: :delete,
             turbo_confirm: "Tem certeza que deseja deletar?"
         }%>
+        <% else %>
+
+        <% end %>
     </p>
+    </div>

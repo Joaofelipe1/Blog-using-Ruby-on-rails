@@ -1,11 +1,33 @@
-<p>Todas as postagens do blog:<p>
+<div class="container">
+    <div class="row">
+        <div class="digg_pagination">
+        <%= will_paginate @posts, :container => false %>
+    </div>
+    <% @posts.each do |post| %>
+        <div class="row">
+            <div class= "card">
+            <img class="card-img-top"
+            src= "<%= url_for post.optimized_image(post.thumbnail, 586, 180)%>"
+            alt="Blog post image Card"
+            />
+            <div class="card-body">
+            <h5 class= "card-title">
+            <%= link_to post.title, post %>
+            </h5>
+            <p class="card-text">
+             <%= post.body.to_plain_text.truncate_words(50)%>]
+            </p>
+            <p class="card-text">
+                <small class= "text-muted">
+                <%= post.updated_at.strftime("%A, %B, %e, %Y")%> by
+                <%= post.user.username %> | <%=post.comments.count %> comments
+                </small>
+            </p>
+        </div>
 
-<ul>
-<% @posts.each do |post| %>
-    <li>
-        <%= link_to post.title, post %> 
-    </li>
-<%end %>
-</ul>
+    <%end %>
+</div>
 
-<%= link_to "Nova publicação", new_post_path %>
+
+
+

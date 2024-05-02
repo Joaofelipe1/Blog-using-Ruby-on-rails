@@ -1,19 +1,47 @@
+<div style="width:100%; height:300px; overflow-y:hidden">
+    <%= image_tag(@post.banner, style: 'width:100%') %>
 
-<h1><%= @post.title %></h1>
+</div>
 
-<%= @post.body %>
+<div class="container" style="margin-top: 2em; background-color: #F5F5F5; padding: 50px">
+    <div class="row">
+        <h1 class="display-4">
+            <%= link_to @post.title, root_path %>
+        </h1>
+        <p class="lead">
+            <%= @post.updated_at.strftime('%A, %B, %e, %Y') %> by <%= @post.user.username %> 
+            <% if current_user && (@post.user_id == current_user.id) || current_user && current_user.admin == true %> 
+                <%= link_to "Editar", edit_post_path %>
+                <%= link_to "Remover", post_path(@post), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Tem certeza que deseja deletar?"
+                } %>
+            <% else %>
+ 
+            <% end %>
+        </p>
+        <hr class="my-4" />
+        <div class="post_body">
+            <%= @post.body %>
+        </div>
+        
+    </div>
+        
+</div>	
+            <%= render 'comments/form' %>
+            <%= render @comments %>    
 
-<ul>
-<li><%= link_to "Editar", edit_post_path(@post) %> </li>
-<li><%= link_to "Deletar", post_path(@post), data:{
-    turbo_method: :delete,
-    turbo_confirm: "Tem certeza que deseja deletar?"
-    } %></li>
 
-    <h2>Adicione um comentário:</h2>
-    <%= render 'comments/form' %>
+            
 
-    <h2>Comentários</h2>
-    <%= render @post.comments %>
+
+
+
+
+
+
+
+
     
-</ul>
+
+
