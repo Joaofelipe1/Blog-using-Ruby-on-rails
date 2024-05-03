@@ -1,19 +1,31 @@
-app = "green-wildflower-1633"
+# fly.toml app configuration file generated for blogsite-ok-onrails on 2024-05-02T17:33:22-03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
 
-kill_signal = "SIGINT"
-kill_timeout = 5
-processes = []
+app = 'blogsite-ok-onrails'
+primary_region = 'gru'
+console_command = '/rails/bin/rails console'
 
+[build]
 
-[[services]]
+[http_service]
   internal_port = 3000
-  processes = ["app"]
-  protocol = "tcp"
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
 
-  [[services.ports]]
-    handlers = ["http"]
-    port = 80
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
+[mounts]
+  source="data"
+  destination="/data"
 
-  [[services.ports]]
-    handlers = ["tls", "http"]
-    port = 443
+[[statics]]
+  guest_path = "/rails/public"
+  url_prefix = "/"
+
